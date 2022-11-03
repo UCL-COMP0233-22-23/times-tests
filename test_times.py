@@ -54,6 +54,7 @@ def test_same_time():
     assert result == expected
 
 '''
-
+'''
 def test_interval():
     wrong_interval = time_range("2010-01-12 12:00:00", "2010-01-12 10:00:00")
+'''
