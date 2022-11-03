@@ -11,3 +11,10 @@ def test_non_overlapping_time():
     range2 = time_range("2012-01-12 10:00:00", "2012-01-12 12:00:00")
     expected = None
     assert compute_overlap_time(range1, range2) == expected
+
+# def test_several_intervals_time():
+#     range1 = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00", 2)
+#     range2 = time_range("2012-01-12 10:00:00", "2012-01-12 12:00:00", 3)
+
+def test_backward_time_range():
+    time_range("2012-01-12 10:00:00", "2010-01-12 12:00:00")
