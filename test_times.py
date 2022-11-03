@@ -4,14 +4,22 @@ from times import compute_overlap_time
 from times import time_range
 
 
-def test_given_input():
+def test_Overlap_Intervals():
 
-    large_2 = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00",3,45)
-    short_2 = time_range("2010-01-12 09:30:00", "2010-01-12 09:45:00",2,20)
-    result_2 = (compute_overlap_time(large_2, short_2))
-    expected_2 = np.array([0,0,0,0,0,0])
-
-
+    n_intervals_1, n_intervals_2 = 3, 3
+    large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00", n_intervals_1, 45)
+    short = time_range("2010-01-12 09:30:00", "2010-01-12 09:45:00", n_intervals_2, 20)
+    result = (compute_overlap_time(large, short))
+    expected = [0] * n_intervals_1 * n_intervals_2
     
-    assert np.all(result_2==expected_2)
+    assert result==expected
+
+def test_():
+
+    large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
+    short = time_range("2010-01-12 09:30:00", "2010-01-12 09:45:00")
+    result = (compute_overlap_time(large, short))
+    expected = [0]
+    
+    assert result==expected
 
