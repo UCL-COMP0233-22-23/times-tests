@@ -1,4 +1,5 @@
-import times
+import times 
+from pytest import raises
 
 def test_given_input():
 
@@ -29,3 +30,8 @@ def test_several_intervals_one_second_intersections():
     result = times.compute_overlap_time(large, short)
     expected = [('2010-01-12 10:30:00', '2010-01-12 10:30:00')]
     assert result == expected
+
+def test_invalid_date_order_raise_error():
+    with raises(ValueError):
+        times.time_range("2010-01-12 10:30:00", "2010-01-12 10:00:00", 12, 15)
+    
