@@ -1,4 +1,5 @@
 import datetime
+import time
 
 
 def time_range(start_time, end_time, number_of_intervals=1, gap_between_intervals_s=0):
@@ -12,15 +13,19 @@ def time_range(start_time, end_time, number_of_intervals=1, gap_between_interval
 
 
 def compute_overlap_time(range1, range2):
-    overlap_time = []
-    for start1, end1 in range1:
-        for start2, end2 in range2:
-            low = max(start1, start2)
-            high = min(end1, end2)
-            overlap_time.append((low, high))
-    return overlap_time
+    latest_start = max(min([start for start, end in range1]), 
+                       min([start for start, end in range2]))
+    earliest_end = min(max([end for start, end in range1]), 
+                       max([end for start, end in range2]))
+    ls_sec = time.mktime(time.strptime(latest_start, "%Y-%m-%d %H:%M:%S"))
+    ee_sec = time.mktime(time.strptime(earliest_end, "%Y-%m-%d %H:%M:%S"))
+    if ls_sec < ee_sec:
+        return ee_sec - ls_sec
+    else:
+        return 0
 
 if __name__ == "__main__":
-    large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00",2,3600/2)
-    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2, 60)
-    print(compute_overlap_time(large, short))
+    large = time_range("2010-01-12 10:00:00", "2010-01-12 10:31:00", 2)
+    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:50:00", 2)
+    print()
+    print(compute_overlap_time(large, short), 'seconds of overlap')

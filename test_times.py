@@ -4,10 +4,34 @@ from times import compute_overlap_time
 from times import time_range
 import datetime
 
-def test_given_input():
-    large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00",2,3600/2)
-    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2, 60)
+def test_subset_overlap():
+    large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00", 2)
+    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2)
+    result = compute_overlap_time(large, short)    
+    expected = 15.0*60.0
+    assert result == expected
+    
+def test_partial_overlap():
+    large = time_range("2010-01-12 10:00:00", "2010-01-12 10:40:00", 2)
+    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2)
 
     result = compute_overlap_time(large, short)    
-    expected = [('2010-01-12 10:30:00', '2010-01-12 10:37:00'), ('2010-01-12 10:38:00', '2010-01-12 10:45:00'), ('2010-01-12 11:15:00', '2010-01-12 10:37:00'), ('2010-01-12 11:15:00', '2010-01-12 10:45:00')]
+    expected = 10.0*60.0
     assert result == expected
+    
+def test_vanishing_overlap():
+    large = time_range("2010-01-12 10:45:00", "2010-01-12 12:00:00", 2)
+    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2)
+
+    result = compute_overlap_time(large, short)    
+    expected = 0.0
+    assert result == expected
+
+def test_zero_overlap():
+    large = time_range("2010-01-12 12:00:00", "2010-01-12 12:00:00", 2)
+    short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2,)
+
+    result = compute_overlap_time(large, short)    
+    expected = 0.0
+    assert result == expected
+
