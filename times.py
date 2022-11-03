@@ -21,7 +21,7 @@ def time_range(start_time, end_time, number_of_intervals=1, gap_between_interval
     print("exec_info.value.args = ", exec_info.value.args)
 
     assert exec_info.type == ValueError
-    assert exec_info.value.args[0] == "value not 0"
+    assert exec_info.value.args[0] == "time range is invalid."
 
     d = (end_time_s - start_time_s).total_seconds() / number_of_intervals + gap_between_intervals_s * (1 / number_of_intervals - 1)
     sec_range = [(start_time_s + datetime.timedelta(seconds=i * d + i * gap_between_intervals_s),
