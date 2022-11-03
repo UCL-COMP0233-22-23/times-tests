@@ -6,4 +6,10 @@ def test_given_input():
     result = compute_overlap_time(large,short)
     expected = [('2010-01-12 10:30:00', '2010-01-12 10:37:00'), ('2010-01-12 10:38:00', '2010-01-12 10:45:00')]
     assert result == expected
-    
+
+def test_given_input_2():
+    range1 = time_range("2000-01-01 10:00:00", "2001-01-01 10:00:00")
+    range2 = time_range("2100-01-01 10:00:00", "2101-01-01 10:00:00")
+    result = compute_overlap_time(range1,range2)
+    expected = []
+    assert result == expected
