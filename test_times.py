@@ -22,6 +22,7 @@ def test_given_input():
     short = time_range("2010-01-12 10:15:00", "2010-01-12 10:46:00", 2, 60)
     result = compute_overlap_time(large, short)
     expected = time_range[(("2010-01-12 10:15:00", "2010-01-12 10:31:00"), ("2010-01-12 10:31:00", "2010-01-12 10:46:00"))]
+    assert result == expected
 
 def test_given_input():
     #one ends and one starts at the same time
@@ -30,4 +31,21 @@ def test_given_input():
     result = compute_overlap_time(large, short)
     expected = ["2010-01-12 10:31:00", "2010-01-12 10:31:00"]
     assert result == expected
+
+def test_given_input():
+    #end_time is before start_time
+    large = time_range("2010-01-12 10:31:00", "2010-01-12 10:00:00")
+    short = time_range("2010-01-12 10:16:00", "2010-01-12 10:15:00")
+    result = compute_overlap_time(large, short)
+    expected = []
+    assert result == expected
+
+def test_given_input():
+    #end time is before start time
+    large = time_range("2010-01-12 10:31:00", "2010-01-12 10:00:00")
+    short = time_range("2010-01-12 10:16:00", "2010-01-12 10:15:00")
+    result = compute_overlap_time(large, short)
+    expected = []
+    assert result == expected
+    
 
