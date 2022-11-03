@@ -1,8 +1,14 @@
 from times import * 
 import pytest
 from pytest import raises
+import yaml
 
-@pytest.mark.parametrize("range1, range2, expected", [(time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00"), time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2, 60), [('2010-01-12 10:30:00', '2010-01-12 10:37:00'), ('2010-01-12 10:38:00', '2010-01-12 10:45:00')]), (time_range("2000-01-01 10:00:00", "2001-01-01 10:00:00"), time_range("2100-01-01 10:00:00", "2101-01-01 10:00:00"), []), (time_range("2000-01-01 10:00:00", "2001-01-01 10:00:00", 2, 60), time_range("2000-06-01 10:00:00", "2001-06-01 10:00:00", 2, 120),[('2000-06-01 10:00:00', '2000-07-02 09:59:30'), ('2000-07-02 10:00:30', '2000-11-30 21:59:00'), ('2000-11-30 22:01:00', '2001-01-01 10:00:00')]), (time_range("2000-01-01 10:00:00", "2001-01-01 10:00:00") , time_range("2001-01-01 10:00:00", "2002-01-01 10:00:00"), [("2001-01-01 10:00:00", "2001-01-01 10:00:00")])])
+with open("test_fixtures.yaml", "r") as file:
+    test_info = yaml.safe_load(file)
+
+parameters=[(eval(test["range1"]), eval(test["range2"]), eval(test["expected"])) for test in test_info.values()]
+
+@pytest.mark.parametrize("range1, range2, expected", parameters)
 def test_given_input(range1, range2, expected):
     result = compute_overlap_time(range1,range2)
     assert result == expected
