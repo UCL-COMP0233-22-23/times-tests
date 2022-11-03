@@ -1,5 +1,4 @@
 from pytest import raises
-import numpy as np
 from times import compute_overlap_time
 from times import time_range
 
