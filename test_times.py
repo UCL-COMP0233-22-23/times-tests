@@ -1,4 +1,5 @@
 from times import * 
+from pytest import raises
 
 def test_given_input():
     large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
@@ -25,4 +26,7 @@ def test_given_input_4():
     range2 = time_range("2001-01-01 10:00:00", "2002-01-01 10:00:00")
     result = compute_overlap_time(range1,range2)
     assert result == [("2001-01-01 10:00:00", "2001-01-01 10:00:00")]
-    
+
+def test_time_range_invalid_input():
+    with raises(ValueError):
+        range = time_range("2001-01-01 10:00:00", "2000-01-01 10:00:00")
