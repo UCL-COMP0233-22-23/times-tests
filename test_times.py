@@ -27,7 +27,7 @@ def test_no_overlap():
     expected = []
     print('Expected: ', expected)
     assert result == expected
-
+'''
 def test_multiple_ranges():
 
     intervals1 =  time_range("2010-01-12 10:00:00", "2010-01-12 13:00:00", 2, 3600)
@@ -39,7 +39,8 @@ def test_multiple_ranges():
                 ('2010-01-12 12:00:00', '2010-01-12 12:00:00')]
     print('Expected: ', expected)
     assert result == expected
-
+'''
+'''
 def test_same_time():
     
     intervals1 =  time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
@@ -52,5 +53,7 @@ def test_same_time():
     print('Expected: ', expected)
     assert result == expected
 
+'''
+
 def test_interval():
-    wrong_interval = time_range("2010-01-12 12:00:00", "2010-01-12 10:00:00") 
+    wrong_interval = time_range("2010-01-12 12:00:00", "2010-01-12 10:00:00")
