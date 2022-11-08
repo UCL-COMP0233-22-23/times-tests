@@ -13,9 +13,18 @@ def time_range(start_time, end_time, number_of_intervals=1, gap_between_interval
 
 def compute_overlap_time(range1, range2):
     overlap_time = []
+    low1, max1 = min(range1), max(range1)
+    low2, max2 = min(range2), max(range2)
+    if min(low1) < min(low2): 
+        raise ValueError("Start time is later than end time!")
     for start1, end1 in range1:
         for start2, end2 in range2:
             low = max(start1, start2)
             high = min(end1, end2)
             overlap_time.append((low, high))
     return overlap_time
+
+
+range1 = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00", 3, 60)
+range2 = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00")
+
