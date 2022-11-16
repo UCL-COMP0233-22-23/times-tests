@@ -27,14 +27,15 @@ def compute_overlap_time(range1, range2):
 
     if latest_1 <= earlist_2 or latest_2 <= earlist_1:
         raise ValueError("no overlap between two time range")
-    for start1, end1 in range1:
-        for start2, end2 in range2:
-            if start2 < end1:
-                low = max(start1, start2)
-                high = min(end1, end2)
-                overlap_time.append((low, high))
-    print(overlap_time)
-    return overlap_time
+    else:
+        for start1, end1 in range1:
+            for start2, end2 in range2:
+                if start2 < end1:
+                    low = max(start1, start2)
+                    high = min(end1, end2)
+                    overlap_time.append((low, high))
+        print(overlap_time)
+        return overlap_time
 
 if __name__ == "__main__":
     large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
