@@ -1,32 +1,39 @@
 import datetime
 import pytest
-#to test if github connection is alright
+from pytest import raises
+
 def value_error_warning(start_time_s, end_time_s):
-    if start_time_s>end_time_s:
-        raise ValueError("Input time {},{} is invalid".format(start_time_s,end_time_s))
+    if start_time_s > end_time_s:
+        raise ValueError("Input time is invalid, start time is later than end time!")
 
 def time_range(start_time, end_time, number_of_intervals=1, gap_between_intervals_s=0):
     start_time_s = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
     end_time_s = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
-    with python.raise(ValueError):
-        
-        #start_time_s = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
-        #end_time_s = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+    value_error_warning(start_time_s, end_time_s)
 
     d = (end_time_s - start_time_s).total_seconds() / number_of_intervals + gap_between_intervals_s * (1 / number_of_intervals - 1)
     sec_range = [(start_time_s + datetime.timedelta(seconds=i * d + i * gap_between_intervals_s),
                 start_time_s + datetime.timedelta(seconds=(i + 1) * d + i * gap_between_intervals_s))
                 for i in range(number_of_intervals)]
-    return [(ta.strftime("%Y-%m-%d %H:%M:%S"), tb.strftime("%Y-%m-%d %H:%M:%S")) for ta, tb in sec_range]
 
+    return [(ta.strftime("%Y-%m-%d %H:%M:%S"), tb.strftime("%Y-%m-%d %H:%M:%S")) for ta, tb in sec_range]
 
 def compute_overlap_time(range1, range2):
     overlap_time = []
+    earlist_1 = range1[0][0]
+    latest_1 = range1[-1][1]
+    earlist_2 = range2[0][0]
+    latest_2 = range2[-1][1]
+
+    if latest_1 <= earlist_2 or latest_2 <= earlist_1:
+        raise ValueError("no overlap between two time range")
     for start1, end1 in range1:
         for start2, end2 in range2:
-            low = max(start1, start2)
-            high = min(end1, end2)
-            overlap_time.append((low, high))
+            if start2 < end1:
+                low = max(start1, start2)
+                high = min(end1, end2)
+                overlap_time.append((low, high))
+    print(overlap_time)
     return overlap_time
 
 if __name__ == "__main__":
