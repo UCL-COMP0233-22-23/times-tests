@@ -1,5 +1,8 @@
 from times import time_range,compute_overlap_time
+import pytest
 
+
+'''
 def test_given_input(): 
     
     large = time_range("2010-01-12 10:00:00", "2010-01-12 9:00:00")
@@ -45,4 +48,17 @@ def test_given_input():
     result3 = compute_overlap_time(large, short)
     expected3  = []
     assert result3 == expected3
-    
+''' 
+
+large1 = time_range("2010-01-12 10:00:00", "2010-01-12 11:00:00")
+short1 = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2, 60)
+short2 = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00")
+
+@pytest.mark.parametrize(
+    "time_range_1,time_range_2,expected",
+    [(large1,short1, [('2010-01-12 10:30:00', '2010-01-12 10:37:00'), ('2010-01-12 10:38:00', '2010-01-12 10:45:00')]), 
+    (large1,short2, [('2010-01-12 10:30:00', '2010-01-12 10:45:00')])],
+)
+
+def test_eval(time_range_1,time_range_2, expected):
+    assert compute_overlap_time(time_range_1,time_range_2) == expected
