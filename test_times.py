@@ -49,7 +49,7 @@ def test_given_input():
     expected3  = []
     assert result3 == expected3
 ''' 
-
+'''
 large1 = time_range("2010-01-12 10:00:00", "2010-01-12 11:00:00")
 short1 = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2, 60)
 short2 = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00")
@@ -61,4 +61,24 @@ short2 = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00")
 )
 
 def test_eval(time_range_1,time_range_2, expected):
+    assert compute_overlap_time(time_range_1,time_range_2) == expected
+'''
+
+import yaml
+
+file=open('./fixture.yaml')
+data=yaml.load(file,Loader=yaml.FullLoader)
+
+fixture = []
+for i in data:
+    time_range_1 = eval(i['time_range_1'])
+    time_range_2 = eval(i['time_range_2'])
+    expected = [eval(j) for j in i['expected']]
+    fixture.append((time_range_1, time_range_2, expected))
+    
+@pytest.mark.parametrize(
+    "time_range_1, time_range_2, expected", fixture
+)
+
+def test_eval(time_range_1,time_range_2,expected):
     assert compute_overlap_time(time_range_1,time_range_2) == expected

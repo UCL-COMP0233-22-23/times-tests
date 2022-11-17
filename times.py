@@ -1,5 +1,6 @@
 import datetime
 import pytest
+import yaml
 
 pytest.raises
 
@@ -33,3 +34,16 @@ large = time_range("2010-01-12 11:00:00", "2010-01-12 12:00:00")
 short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00")
 print(compute_overlap_time(large, short))
 '''
+'''
+large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
+short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00",2,60)
+print(large,short)
+'''
+
+file=open('./fixture.yaml')
+data=yaml.load(file,Loader=yaml.FullLoader)
+time_range_1 = []
+for i in range(len(data)):
+    time_range_1.append(data[i]['time_range_1'])
+
+print(time_range_1)
