@@ -1,5 +1,5 @@
 from times import compute_overlap_time,time_range
-
+from pytest import raises
 
 def test_given_input():
 
@@ -31,3 +31,8 @@ def test_given_input_end_when_the_other_starts():
     short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00",2, 60) 
     expected=[('2010-01-12 10:30:00', '2010-01-12 10:30:00')]
     assert compute_overlap_time(large, short) == expected 
+    
+
+def end_less_than_start():
+    with raises(ValueError):
+        time_range("2010-01-12 10:00:00", "2010-01-12 9:30:00")
