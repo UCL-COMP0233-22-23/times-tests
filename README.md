@@ -1,3 +1,11 @@
+# COMP-0233 Archive
+
+This fork is part of one of the exercises in UCL's COMP0233 ["Research Software Engineering with Python"](https://github.com/UCL-COMP0233-22-23/RSE-Classwork) course. The course is completed, and all repositories are now archived.
+
+([The following group work](https://github.com/bwan1/times-tests/tree/james).)
+
+---
+
 In this exercise, you will be given a few lines of code that perform a certain task (that you will have to understand) and then write an automated test that checks whether that task is performed correctly.
 
 ## Step 0
